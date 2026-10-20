@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Salary Predictor | AI-Powered Compensation Estimator</title>
+        <meta
+            name="description"
+            content="Predict salary ranges based on years of experience using machine learning"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+        <script src="app.js" defer></script>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+        />
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="app-container">
+            <header class="app-header">
+                <div class="logo-container">
+                    <svg
+                        class="logo-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path
+                            d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+                        />
+                    </svg>
+                    <h1 class="app-title">SalaryPredict</h1>
+                </div>
+                <p class="app-tagline">AI-powered compensation estimation</p>
+            </header>
+
+            <main class="prediction-container">
+                <div class="prediction-card">
+                    <h2 class="prediction-title">Estimate Your Market Value</h2>
+                    <p class="prediction-description">
+                        Enter your years of experience to receive a salary
+                        prediction based on industry data
+                    </p>
+
+                    <form id="prediction-form" class="prediction-form">
+                        <div class="form-group">
+                            <label for="experience" class="form-label"
+                                >Years of Professional Experience</label
+                            >
+                            <div class="input-container">
+                                <input
+                                    type="number"
+                                    id="experience"
+                                    name="experience"
+                                    min="0"
+                                    max="50"
+                                    step="0.5"
+                                    class="form-input"
+                                    placeholder="e.g. 3.5"
+                                    required
+                                />
+                                <span class="input-suffix">years</span>
+                            </div>
+                        </div>
+
+                        <button
+                            type="button"
+                            onclick="predictSalary()"
+                            class="predict-button"
+                        >
+                            <span class="button-text">Predict Salary</span>
+                            <svg
+                                class="button-icon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </form>
+
+                    <div id="result" class="result-container">
+                        <div class="result-placeholder">
+                            <svg
+                                class="result-icon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            <p>Your predicted salary will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer class="app-footer">
+                <p class="disclaimer">
+                    Note: Predictions are estimates based on aggregated market
+                    data. Actual compensation may vary based on location,
+                    industry, and other factors.
+                </p>
+                <p class="copyright">
+                    © 2023 SalaryPredict. All rights reserved.
+                </p>
+            </footer>
+        </div>
+        <script>
+            // Replace these with your actual model parameters
+            const INTERCEPT = 25321.583011776813;
+            const COEFFICIENT = 9423.81532303;
+
+            function predictSalary() {
+                // Get the input value from the form
+                const experienceInput =
+                    document.getElementById('experience').value;
+                const yearsExperience = parseFloat(experienceInput);
+
+                // Validate the input
+                if (isNaN(yearsExperience)) {
+                    alert(
+                        'Please enter a valid number for years of experience.'
+                    );
+                    return;
+                }
+
+                // Calculate the predicted salary using the linear regression formula
+                const predictedSalary =
+                    INTERCEPT + COEFFICIENT * yearsExperience;
+
+                // Update the result container with the prediction
+                const resultContainer = document.getElementById('result');
+                resultContainer.innerHTML = `<h3>Predicted Salary: $${predictedSalary.toFixed(
+                    2
+                )}</h3>`;
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,207 @@
+:root {
+    --primary-color: #4361ee;
+    --primary-dark: #3a56d4;
+    --text-color: #2b2d42;
+    --text-light: #6c757d;
+    --background-color: #f8f9fa;
+    --card-color: #ffffff;
+    --border-color: #e9ecef;
+    --success-color: #4bb543;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.app-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--card-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.app-header {
+    padding: 24px;
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.logo-icon {
+    width: 28px;
+    height: 28px;
+    margin-right: 12px;
+}
+
+.app-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.app-tagline {
+    font-size: 14px;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+.prediction-container {
+    padding: 32px;
+}
+
+.prediction-card {
+    background-color: var(--card-color);
+    border-radius: 8px;
+}
+
+.prediction-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.prediction-description {
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    padding-right: 60px;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+}
+
+.input-suffix {
+    position: absolute;
+    right: 12px;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.predict-button {
+    width: 100%;
+    padding: 14px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.predict-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.button-text {
+    margin-right: 8px;
+}
+
+.button-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.result-container {
+    margin-top: 24px;
+    padding: 20px;
+    border-radius: 6px;
+    background-color: var(--background-color);
+    text-align: center;
+}
+
+.result-placeholder {
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 8px;
+    color: var(--text-light);
+}
+
+.app-footer {
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+}
+
+.disclaimer {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+
+.copyright {
+    font-size: 12px;
+    color: var(--text-light);
+}
+
+/* Result states */
+.result-success {
+    background-color: rgba(75, 181, 67, 0.1);
+    color: var(--success-color);
+    font-weight: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .prediction-container {
+        padding: 24px;
+    }
+}
