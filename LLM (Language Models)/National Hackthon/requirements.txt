@@ -1,0 +1,7 @@
+langchain
+langchain-google-genai
+python-dotenv
+Pillow
+google-generativeai
+requests
+pytrends

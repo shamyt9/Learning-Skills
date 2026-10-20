@@ -1,0 +1,42 @@
+TL;DR: AI coding tools are incredibly fast, but they often introduce deep security flaws that humans miss. From privilege escalation to “hallucinated” dependencies, the risks are real. Learn how to use AI assistants safely without compromising your app’s security.
+
+AI is writing a lot of code these days. Tools like GitHub Copilot, Cursor, and Claude Code have turned “vibe coding”—where you write a prompt and let the AI handle the syntax—into a mainstream practice .
+
+But there is a problem. While these tools make developers faster, they are also creating a massive security blind spot.
+
+Recent research suggests that while AI reduces simple typos, it actually increases the number of deep, architectural flaws in your software . If you are blindly accepting code from an AI, you might be inviting hackers into your system.
+
+Let’s break down where AI-generated code fails and, more importantly, how you can fix it.
+
+The Illusion of Perfect Code
+When you look at AI-generated code, it looks perfect. The formatting is clean, the variable names make sense, and there are no obvious syntax errors. But security flaws aren’t always obvious.
+
+According to application security firm Apiiro, AI-generated code is introducing over 10,000 new security findings per month across the repositories they studied—a tenfold spike in just six months .
+
+Why? Because AI models are trained on public code, and public code is often broken. They learn patterns, not intent. As one expert puts it, “AI tools are not designed to exercise judgment. They do not think about privilege escalation paths, secure architectural patterns, or compliance nuances” .
+
+The Top Security Blind Spots in AI Code
+1. The Authorization Trap
+AI is great at getting the basics right, but it fails hard when logic gets complex. In recent tests by Tenzai, AI agents handled simple issues like SQL injection (SQLi) well. However, they failed miserably at authorization.
+
+“One of the most common issues we encountered was improper authorization when accessing APIs,” researchers noted . This means the AI wrote code that let users access data they shouldn’t. In a fintech example, AI created a service with “ideal code formatting, but with insecure authorization logic,” which could allow a normal user to escalate their privileges to admin level .
+
+2. Business Logic Blindness
+AI doesn’t understand your business. In one test, when researchers asked AI to build a shopping app without specifying that prices must be positive, the AI allowed products with negative prices . Similarly, it allowed negative orders.
+
+A human developer would never do that—it’s common sense. But to an AI, it’s just data. If you don’t specify the rules of your business in excruciating detail, the AI will ship broken logic.
+
+3. The Verbosity Problem
+Human developers are lazy (in a good way). They reuse functions. AI assistants, however, often don’t have the full context of your project. Instead of calling an existing secure function, they might rebuild it from scratch.
+
+Experts note that AI assistants “often rebuild or rewrite functionality, instead of calling out to other functions or modules” . This creates bloated code. More code means more attack surface. It also means more dependencies, which brings us to the next point.
+
+4. Hallucinated Dependencies and Supply Chain Attacks
+This is a scary one. AI models have been known to “hallucinate”—make things up. In coding, this means suggesting package names that don’t exist.
+
+In a simulated attack, researchers at Armis Labs found that an AI assistant recommended third-party libraries with known, exploitable vulnerabilities . If a malicious actor uploads a real package with the same name as a hallucinated one (known as a dependency confusion attack), your AI could trick you into downloading malware.
+
+5. Missing Security Controls
+Perhaps the most alarming finding from recent studies is what AI doesn’t do. According to Tenzai’s testing of five major AI coding agents, “All the coding agents, across every test we performed, failed miserably when it came to security controls. It wasn’t that they implemented them incorrectly, in almost all cases – they didn’t even try” .
+
+This means AI won’t automatically add rate limiting, proper logging, or multi-factor authentication unless you specifically, and expertly, ask for it.

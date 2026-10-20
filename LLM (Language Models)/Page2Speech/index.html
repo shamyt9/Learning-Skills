@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Page2Speech - PDF Summarizer</title>
+        <link rel="stylesheet" href="style.css" />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                    Oxygen, Ubuntu, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                color: #333;
+            }
+
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 2rem;
+            }
+
+            header {
+                text-align: center;
+                color: white;
+                margin-bottom: 2rem;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .upload-section {
+                background: white;
+                border-radius: 10px;
+                padding: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+
+            .file-upload {
+                border: 2px dashed #ccc;
+                border-radius: 8px;
+                padding: 2rem;
+                text-align: center;
+                cursor: pointer;
+                transition: border-color 0.3s;
+            }
+
+            .file-upload:hover {
+                border-color: #667eea;
+            }
+
+            .file-upload.dragover {
+                border-color: #667eea;
+                background: #f0f3ff;
+            }
+
+            .upload-content .icon {
+                font-size: 3rem;
+                display: block;
+                margin-bottom: 1rem;
+            }
+
+            #browseBtn {
+                background: none;
+                border: none;
+                color: #667eea;
+                text-decoration: underline;
+                cursor: pointer;
+                font-size: 1rem;
+            }
+
+            .or-divider {
+                text-align: center;
+                margin: 1.5rem 0;
+                color: #999;
+                position: relative;
+            }
+
+            .or-divider::before,
+            .or-divider::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                width: 45%;
+                height: 1px;
+                background: #ddd;
+            }
+
+            .or-divider::before {
+                left: 0;
+            }
+            .or-divider::after {
+                right: 0;
+            }
+
+            .text-input {
+                margin-top: 1rem;
+            }
+
+            #textInput {
+                width: 100%;
+                min-height: 150px;
+                padding: 1rem;
+                border: 2px solid #e0e0e0;
+                border-radius: 8px;
+                font-size: 1rem;
+                resize: vertical;
+                margin-bottom: 1rem;
+            }
+
+            #textInput:focus {
+                outline: none;
+                border-color: #667eea;
+            }
+
+            .btn-primary {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                padding: 0.75rem 2rem;
+                border-radius: 5px;
+                font-size: 1rem;
+                cursor: pointer;
+                width: 100%;
+                transition: opacity 0.3s;
+            }
+
+            .btn-primary:hover {
+                opacity: 0.9;
+            }
+
+            .btn-secondary {
+                background: #4caf50;
+                color: white;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-left: 1rem;
+            }
+
+            .btn-outline {
+                background: none;
+                border: 2px solid #667eea;
+                color: #667eea;
+                padding: 0.5rem 2rem;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 1rem;
+                margin-top: 1rem;
+            }
+
+            .loading {
+                text-align: center;
+                margin-top: 2rem;
+                color: white;
+            }
+
+            .spinner {
+                border: 4px solid rgba(255, 255, 255, 0.3);
+                border-top: 4px solid white;
+                border-radius: 50%;
+                width: 40px;
+                height: 40px;
+                animation: spin 1s linear infinite;
+                margin: 0 auto 1rem;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .result-section {
+                background: white;
+                border-radius: 10px;
+                padding: 2rem;
+                margin-top: 2rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            }
+
+            .summary-box {
+                background: #f9f9f9;
+                padding: 1.5rem;
+                border-radius: 5px;
+                margin: 1rem 0;
+                line-height: 1.6;
+            }
+
+            .audio-controls {
+                margin: 1rem 0;
+                padding: 1rem;
+                background: #f0f3ff;
+                border-radius: 5px;
+            }
+
+            .audio-controls h3 {
+                margin-bottom: 1rem;
+                color: #667eea;
+            }
+
+            #audioPlayer {
+                width: calc(100% - 120px);
+                vertical-align: middle;
+            }
+
+            .error {
+                color: #e74c3c;
+                background: #fde8e8;
+                padding: 1rem;
+                border-radius: 5px;
+                margin: 1rem 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>📄 Page2Speech</h1>
+                <p>Upload a PDF and get AI-powered summary + Audio</p>
+            </header>
+
+            <main>
+                <div class="upload-section">
+                    <div class="file-upload" id="dropZone">
+                        <input
+                            type="file"
+                            id="fileInput"
+                            accept=".pdf"
+                            hidden
+                        />
+                        <div class="upload-content">
+                            <span class="icon">📁</span>
+                            <p>
+                                Drag & drop your PDF here or
+                                <button id="browseBtn">browse</button>
+                            </p>
+                            <small>Max file size: 10MB</small>
+                        </div>
+                    </div>
+
+                    <div class="or-divider">OR</div>
+
+                    <div class="text-input">
+                        <textarea
+                            id="textInput"
+                            placeholder="Paste your text here..."
+                        ></textarea>
+                        <button id="summarizeTextBtn" class="btn-primary">
+                            Summarize Text
+                        </button>
+                    </div>
+                </div>
+
+                <div class="loading" id="loading" style="display: none">
+                    <div class="spinner"></div>
+                    <p>Generating summary... This may take a moment</p>
+                </div>
+
+                <div
+                    class="result-section"
+                    id="resultSection"
+                    style="display: none"
+                >
+                    <h2>📝 Summary</h2>
+                    <div class="summary-box" id="summary">
+                        <!-- Summary will appear here -->
+                    </div>
+
+                    <div
+                        class="audio-controls"
+                        id="audioControls"
+                        style="display: none"
+                    >
+                        <h3>🔊 Listen</h3>
+                        <audio id="audioPlayer" controls></audio>
+                        <button id="downloadAudio" class="btn-secondary">
+                            Download Audio
+                        </button>
+                    </div>
+
+                    <button id="newSummaryBtn" class="btn-outline">
+                        Create New Summary
+                    </button>
+                </div>
+            </main>
+        </div>
+
+        <script>
+            // API Configuration
+            const API_BASE_URL = 'http://localhost:8000';
+
+            // DOM Elements
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const browseBtn = document.getElementById('browseBtn');
+            const textInput = document.getElementById('textInput');
+            const summarizeTextBtn =
+                document.getElementById('summarizeTextBtn');
+            const loading = document.getElementById('loading');
+            const resultSection = document.getElementById('resultSection');
+            const summary = document.getElementById('summary');
+            const audioControls = document.getElementById('audioControls');
+            const audioPlayer = document.getElementById('audioPlayer');
+            const downloadAudio = document.getElementById('downloadAudio');
+            const newSummaryBtn = document.getElementById('newSummaryBtn');
+
+            // File Upload Handlers
+            browseBtn.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    uploadFile(e.target.files[0]);
+                }
+            });
+
+            // Drag & Drop
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('dragover');
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+
+                const files = e.dataTransfer.files;
+                if (files.length > 0 && files[0].type === 'application/pdf') {
+                    uploadFile(files[0]);
+                } else {
+                    alert('Please drop a PDF file');
+                }
+            });
+
+            // Upload PDF Function
+            async function uploadFile(file) {
+                // Validate file size (10MB max)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('File size must be less than 10MB');
+                    return;
+                }
+
+                // Show loading
+                loading.style.display = 'block';
+                resultSection.style.display = 'none';
+
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const response = await fetch(
+                        `${API_BASE_URL}/upload-pdf/`,
+                        {
+                            method: 'POST',
+                            body: formData,
+                        },
+                    );
+
+                    if (!response.ok) {
+                        throw new Error(
+                            `HTTP error! status: ${response.status}`,
+                        );
+                    }
+
+                    const data = await response.json();
+                    displayResult(data);
+                } catch (error) {
+                    console.error('Error:', error);
+                    showError('Failed to upload file. Please try again.');
+                    loading.style.display = 'none';
+                }
+            }
+
+            // Summarize Text Function
+            summarizeTextBtn.addEventListener('click', async () => {
+                const text = textInput.value.trim();
+
+                if (!text) {
+                    alert('Please enter some text to summarize');
+                    return;
+                }
+
+                // Show loading
+                loading.style.display = 'block';
+                resultSection.style.display = 'none';
+
+                try {
+                    const response = await fetch(
+                        `${API_BASE_URL}/summarize-text/?text=${encodeURIComponent(text)}`,
+                        {
+                            method: 'POST',
+                        },
+                    );
+
+                    if (!response.ok) {
+                        throw new Error(
+                            `HTTP error! status: ${response.status}`,
+                        );
+                    }
+
+                    const data = await response.json();
+                    displayResult(data);
+                } catch (error) {
+                    console.error('Error:', error);
+                    showError('Failed to summarize text. Please try again.');
+                    loading.style.display = 'none';
+                }
+            });
+
+            // Display Result
+            function displayResult(data) {
+                loading.style.display = 'none';
+
+                // Format summary with bullet points
+                let summaryText = data.summary;
+                if (!summaryText.includes('•') && !summaryText.includes('-')) {
+                    // Add bullet points if not present
+                    summaryText = summaryText
+                        .split('\n')
+                        .filter((line) => line.trim())
+                        .map((line) => `• ${line}`)
+                        .join('\n');
+                }
+
+                summary.innerHTML = summaryText.replace(/\n/g, '<br>');
+
+                // Show audio controls if available
+                if (data.audio_url) {
+                    audioControls.style.display = 'block';
+                    audioPlayer.src = `${API_BASE_URL}${data.audio_url}`;
+                    downloadAudio.onclick = () => {
+                        const a = document.createElement('a');
+                        a.href = audioPlayer.src;
+                        a.download = 'summary.mp3';
+                        a.click();
+                    };
+                } else {
+                    audioControls.style.display = 'none';
+                }
+
+                resultSection.style.display = 'block';
+
+                // Scroll to result
+                resultSection.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Show Error
+            function showError(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'error';
+                errorDiv.textContent = message;
+
+                resultSection.innerHTML = '';
+                resultSection.appendChild(errorDiv);
+                resultSection.style.display = 'block';
+
+                setTimeout(() => {
+                    errorDiv.remove();
+                    resultSection.style.display = 'none';
+                }, 5000);
+            }
+
+            // New Summary Button
+            newSummaryBtn.addEventListener('click', () => {
+                resultSection.style.display = 'none';
+                textInput.value = '';
+                fileInput.value = '';
+            });
+        </script>
+    </body>
+</html>
