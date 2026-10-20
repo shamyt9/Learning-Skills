@@ -1,0 +1,6 @@
+AGE IS 23
+
+AK THOUGHT
+
+==========================
+HELLO THIS IS FPUTS()

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Nexus | Futuristic Developer Portfolio</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --primary: #0a0a14;
+                --secondary: #1a1a2e;
+                --accent: #00f7ff;
+                --accent2: #ff00c8;
+                --accent3: #6a00ff;
+                --text: #e0e0ff;
+                --text-secondary: #a0a0c0;
+                --glass: rgba(26, 26, 46, 0.5);
+                --glass-border: rgba(0, 247, 255, 0.1);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+                color: var(--text);
+                font-family: 'Exo 2', sans-serif;
+                line-height: 1.6;
+                overflow-x: hidden;
+                position: relative;
+                min-height: 100vh;
+            }
+
+            body::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(
+                        circle at 10% 20%,
+                        rgba(106, 0, 255, 0.1) 0%,
+                        transparent 20%
+                    ),
+                    radial-gradient(
+                        circle at 90% 80%,
+                        rgba(255, 0, 200, 0.1) 0%,
+                        transparent 20%
+                    ),
+                    linear-gradient(rgba(10, 10, 20, 0.9) 1px, transparent 1px),
+                    linear-gradient(
+                        90deg,
+                        rgba(10, 10, 20, 0.9) 1px,
+                        transparent 1px
+                    );
+                background-size: 40px 40px;
+                z-index: -1;
+                opacity: 0.3;
+            }
+
+            /* Header & Navigation */
+            header {
+                padding: 1.5rem 5%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                width: 100%;
+                z-index: 1000;
+                backdrop-filter: blur(10px);
+                background: rgba(10, 10, 20, 0.8);
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-family: 'Orbitron', sans-serif;
+                font-size: 1.8rem;
+                font-weight: 700;
+                color: var(--accent);
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            .logo i {
+                color: var(--accent2);
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.2);
+                }
+            }
+
+            nav ul {
+                display: flex;
+                list-style: none;
+                gap: 2rem;
+            }
+
+            nav a {
+                color: var(--text);
+                text-decoration: none;
+                font-size: 1.1rem;
+                font-weight: 600;
+                position: relative;
+                padding: 0.5rem 0;
+                transition: all 0.3s ease;
+            }
+
+            nav a::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: var(--accent);
+                transition: width 0.3s ease;
+            }
+
+            nav a:hover {
+                color: var(--accent);
+            }
+
+            nav a:hover::after {
+                width: 100%;
+            }
+
+            .cta-button {
+                background: linear-gradient(
+                    90deg,
+                    var(--accent3),
+                    var(--accent2)
+                );
+                color: white;
+                border: none;
+                padding: 0.8rem 2rem;
+                border-radius: 30px;
+                font-family: 'Orbitron', sans-serif;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 15px rgba(106, 0, 255, 0.5);
+            }
+
+            .cta-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 20px rgba(106, 0, 255, 0.8);
+            }
+
+            /* Hero Section */
+            .hero {
+                padding: 15rem 5% 10rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                max-width: 1600px;
+                margin: 0 auto;
+                position: relative;
+            }
+
+            .hero-content {
+                flex: 1;
+                max-width: 600px;
+            }
+
+            .hero h1 {
+                font-family: 'Orbitron', sans-serif;
+                font-size: 4.5rem;
+                margin-bottom: 1.5rem;
+                background: linear-gradient(
+                    90deg,
+                    var(--accent),
+                    var(--accent2)
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                line-height: 1.1;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+                color: var(--text-secondary);
+                margin-bottom: 2rem;
+                font-weight: 400;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+                margin-bottom: 2.5rem;
+                max-width: 500px;
+            }
+
+            .hero-buttons {
+                display: flex;
+                gap: 1rem;
+            }
+
+            .hero-image {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                position: relative;
+            }
+
+            .hexagon-container {
+                position: relative;
+                width: 400px;
+                height: 400px;
+                animation: float 8s infinite ease-in-out;
+            }
+
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translateY(0) rotate(0deg);
+                }
+                50% {
+                    transform: translateY(-20px) rotate(5deg);
+                }
+            }
+
+            .hexagon {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    135deg,
+                    var(--accent3),
+                    var(--accent2)
+                );
+                clip-path: polygon(
+                    50% 0%,
+                    100% 25%,
+                    100% 75%,
+                    50% 100%,
+                    0% 75%,
+                    0% 25%
+                );
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .hexagon-inner {
+                width: 95%;
+                height: 95%;
+                background: var(--secondary);
+                clip-path: polygon(
+                    50% 0%,
+                    100% 25%,
+                    100% 75%,
+                    50% 100%,
+                    0% 75%,
+                    0% 25%
+                );
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .hexagon-inner img {
+                width: 90%;
+                height: 90%;
+                object-fit: cover;
+                clip-path: polygon(
+                    50% 0%,
+                    100% 25%,
+                    100% 75%,
+                    50% 100%,
+                    0% 75%,
+                    0% 25%
+                );
+            }
+
+            .hexagon-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                    45deg,
+                    transparent,
+                    rgba(0, 247, 255, 0.1)
+                );
+                clip-path: polygon(
+                    50% 0%,
+                    100% 25%,
+                    100% 75%,
+                    50% 100%,
+                    0% 75%,
+                    0% 25%
+                );
+            }
+
+            /* Sections */
+            section {
+                padding: 8rem 5%;
+                max-width: 1600px;
+                margin: 0 auto;
+            }
+
+            .section-header {
+                text-align: center;
+                margin-bottom: 5rem;
+            }
+
+            .section-header h2 {
+                font-family: 'Orbitron', sans-serif;
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                background: linear-gradient(
+                    90deg,
+                    var(--accent),
+                    var(--accent3)
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+            }
+
+            .section-header p {
+                font-size: 1.2rem;
+                color: var(--text-secondary);
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            /* Services */
+            .services-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2.5rem;
+            }
+
+            .service-card {
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                border-radius: 15px;
+                padding: 2.5rem;
+                transition: all 0.4s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .service-card:hover {
+                transform: translateY(-10px);
+                border-color: var(--accent);
+                box-shadow: 0 10px 30px rgba(0, 247, 255, 0.2);
+            }
+
+            .service-icon {
+                font-size: 3rem;
+                color: var(--accent);
+                margin-bottom: 1.5rem;
+            }
+
+            .service-card h3 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+
+            .service-card p {
+                margin-bottom: 1.5rem;
+                color: var(--text-secondary);
+            }
+
+            /* Portfolio */
+            .portfolio-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 2rem;
+            }
+
+            .portfolio-item {
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                border-radius: 15px;
+                overflow: hidden;
+                transition: all 0.4s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .portfolio-item:hover {
+                transform: translateY(-10px);
+                border-color: var(--accent2);
+                box-shadow: 0 10px 30px rgba(255, 0, 200, 0.2);
+            }
+
+            .portfolio-image {
+                height: 250px;
+                overflow: hidden;
+            }
+
+            .portfolio-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+            .portfolio-item:hover .portfolio-image img {
+                transform: scale(1.1);
+            }
+
+            .portfolio-info {
+                padding: 1.5rem;
+            }
+
+            .portfolio-info h3 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .portfolio-tags {
+                display: flex;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .portfolio-tag {
+                background: rgba(0, 247, 255, 0.2);
+                color: var(--accent);
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: 500;
+            }
+
+            /* Courses */
+            .courses-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 2rem;
+            }
+
+            .course-card {
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                border-radius: 15px;
+                overflow: hidden;
+                transition: all 0.4s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .course-card:hover {
+                transform: translateY(-10px);
+                border-color: var(--accent3);
+                box-shadow: 0 10px 30px rgba(106, 0, 255, 0.2);
+            }
+
+            .course-header {
+                padding: 1.5rem;
+                background: rgba(106, 0, 255, 0.1);
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            .course-header h3 {
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .course-level {
+                display: inline-block;
+                background: var(--accent3);
+                color: white;
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-size: 0.8rem;
+            }
+
+            .course-info {
+                padding: 1.5rem;
+            }
+
+            .course-stats {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 1rem;
+            }
+
+            .course-stat {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .progress-bar {
+                height: 8px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+                overflow: hidden;
+                margin-bottom: 1.5rem;
+            }
+
+            .progress {
+                height: 100%;
+                background: linear-gradient(
+                    90deg,
+                    var(--accent),
+                    var(--accent3)
+                );
+                border-radius: 4px;
+                width: 75%;
+            }
+
+            /* Contact */
+            .contact-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                gap: 3rem;
+            }
+
+            .contact-info {
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                border-radius: 15px;
+                padding: 2rem;
+                backdrop-filter: blur(10px);
+            }
+
+            .contact-info h3 {
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+                color: var(--accent);
+            }
+
+            .contact-item {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+                align-items: flex-start;
+            }
+
+            .contact-icon {
+                font-size: 1.5rem;
+                color: var(--accent);
+                min-width: 40px;
+            }
+
+            .contact-form {
+                background: var(--glass);
+                border: 1px solid var(--glass-border);
+                border-radius: 15px;
+                padding: 2rem;
+                backdrop-filter: blur(10px);
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+            }
+
+            .form-control {
+                width: 100%;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid var(--glass-border);
+                border-radius: 8px;
+                color: var(--text);
+                font-size: 1rem;
+                transition: all 0.3s ease;
+            }
+
+            .form-control:focus {
+                outline: none;
+                border-color: var(--accent);
+                box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+            }
+
+            textarea.form-control {
+                min-height: 150px;
+                resize: vertical;
+            }
+
+            /* Footer */
+            footer {
+                background: rgba(10, 10, 20, 0.9);
+                border-top: 1px solid var(--glass-border);
+                padding: 3rem 5%;
+                text-align: center;
+                margin-top: 5rem;
+            }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .social-links a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: var(--glass);
+                color: var(--text);
+                font-size: 1.5rem;
+                transition: all 0.3s ease;
+                border: 1px solid var(--glass-border);
+            }
+
+            .social-links a:hover {
+                background: var(--accent);
+                color: var(--primary);
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0, 247, 255, 0.4);
+            }
+
+            .copyright {
+                color: var(--text-secondary);
+                font-size: 1rem;
+            }
+
+            /* Responsive */
+            @media (max-width: 992px) {
+                .hero {
+                    flex-direction: column;
+                    text-align: center;
+                    padding: 12rem 5% 5rem;
+                }
+
+                .hero-content {
+                    margin-bottom: 3rem;
+                }
+
+                .hero p {
+                    margin: 0 auto 2rem;
+                }
+
+                .hero-buttons {
+                    justify-content: center;
+                }
+            }
+
+            @media (max-width: 768px) {
+                nav ul {
+                    display: none;
+                }
+
+                .hero h1 {
+                    font-size: 3.5rem;
+                }
+
+                .section-header h2 {
+                    font-size: 2.5rem;
+                }
+
+                .contact-container {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .hero h1 {
+                    font-size: 2.8rem;
+                }
+
+                .hero h2 {
+                    font-size: 1.5rem;
+                }
+
+                .hexagon-container {
+                    width: 300px;
+                    height: 300px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fas fa-infinity"></i>
+                <span>NEXUS</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="cta-button">Get Started</button>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>SHAPING THE FUTURE OF DIGITAL EXPERIENCES</h1>
+                <h2>Developer & Educator</h2>
+                <p>
+                    I create cutting-edge web and mobile applications while
+                    teaching others to master the digital landscape through
+                    comprehensive courses.
+                </p>
+                <div class="hero-buttons">
+                    <button class="cta-button">View Portfolio</button>
+                    <button
+                        class="cta-button"
+                        style="
+                            background: transparent;
+                            border: 2px solid var(--accent3);
+                        "
+                    >
+                        Explore Courses
+                    </button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hexagon-container">
+                    <div class="hexagon">
+                        <div class="hexagon-inner">
+                            <img
+                                src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80"
+                                alt="Developer"
+                            />
+                        </div>
+                    </div>
+                    <div class="hexagon-overlay"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services">
+            <div class="section-header">
+                <h2>CREATIVE SERVICES</h2>
+                <p>
+                    Comprehensive digital solutions to transform your vision
+                    into reality
+                </p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>
+                        Custom, responsive websites built with modern frameworks
+                        like React, Vue, and Angular for optimal performance.
+                    </p>
+                    <button class="cta-button">Learn More</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>App Development</h3>
+                    <p>
+                        Native and cross-platform mobile applications for iOS
+                        and Android using Flutter and React Native.
+                    </p>
+                    <button class="cta-button">Learn More</button>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>UI/UX Design</h3>
+                    <p>
+                        User-centered designs that combine aesthetics with
+                        functionality for exceptional digital experiences.
+                    </p>
+                    <button class="cta-button">Learn More</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio">
+            <div class="section-header">
+                <h2>FEATURED PROJECTS</h2>
+                <p>
+                    Showcase of my latest and most innovative development work
+                </p>
+            </div>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Fintech Dashboard"
+                        />
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Quantum Finance Dashboard</h3>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">React</span>
+                            <span class="portfolio-tag">Node.js</span>
+                            <span class="portfolio-tag">Blockchain</span>
+                        </div>
+                        <p>
+                            A comprehensive financial dashboard with real-time
+                            analytics and predictive algorithms.
+                        </p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="Health App"
+                        />
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>MediTrack Health Platform</h3>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">Flutter</span>
+                            <span class="portfolio-tag">Firebase</span>
+                            <span class="portfolio-tag">AI</span>
+                        </div>
+                        <p>
+                            Mobile health application with AI-powered
+                            diagnostics and patient management system.
+                        </p>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">
+                        <img
+                            src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            alt="VR Experience"
+                        />
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>NeoVR Experience</h3>
+                        <div class="portfolio-tags">
+                            <span class="portfolio-tag">WebGL</span>
+                            <span class="portfolio-tag">Three.js</span>
+                            <span class="portfolio-tag">WebXR</span>
+                        </div>
+                        <p>
+                            Immersive virtual reality experience for real estate
+                            visualization using WebXR technologies.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Section -->
+        <section id="courses">
+            <div class="section-header">
+                <h2>PREMIUM COURSES</h2>
+                <p>
+                    Master the digital landscape with my comprehensive learning
+                    programs
+                </p>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Advanced React Development</h3>
+                        <span class="course-level">Intermediate</span>
+                    </div>
+                    <div class="course-info">
+                        <p>
+                            Master React with Hooks, Context API, and advanced
+                            state management techniques.
+                        </p>
+                        <div class="course-stats">
+                            <div class="course-stat">
+                                <i class="far fa-clock"></i>
+                                <span>32 hours</span>
+                            </div>
+                            <div class="course-stat">
+                                <i class="far fa-user"></i>
+                                <span>4,200+ students</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                        <button class="cta-button" style="width: 100%">
+                            Enroll Now
+                        </button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>Flutter Mobile Mastery</h3>
+                        <span class="course-level">Advanced</span>
+                    </div>
+                    <div class="course-info">
+                        <p>
+                            Build beautiful, native mobile applications for iOS
+                            and Android with Flutter.
+                        </p>
+                        <div class="course-stats">
+                            <div class="course-stat">
+                                <i class="far fa-clock"></i>
+                                <span>45 hours</span>
+                            </div>
+                            <div class="course-stat">
+                                <i class="far fa-user"></i>
+                                <span>3,500+ students</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                        <button class="cta-button" style="width: 100%">
+                            Enroll Now
+                        </button>
+                    </div>
+                </div>
+                <div class="course-card">
+                    <div class="course-header">
+                        <h3>UI/UX Design Fundamentals</h3>
+                        <span class="course-level">Beginner</span>
+                    </div>
+                    <div class="course-info">
+                        <p>
+                            Learn design principles, prototyping, and user
+                            testing methodologies.
+                        </p>
+                        <div class="course-stats">
+                            <div class="course-stat">
+                                <i class="far fa-clock"></i>
+                                <span>28 hours</span>
+                            </div>
+                            <div class="course-stat">
+                                <i class="far fa-user"></i>
+                                <span>5,800+ students</span>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                        <button class="cta-button" style="width: 100%">
+                            Enroll Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="section-header">
+                <h2>GET IN TOUCH</h2>
+                <p>Let's collaborate on your next digital innovation</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contact@nexus.dev</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>San Francisco, CA</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div>
+                            <h4>Follow Me</h4>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-github"></i></a>
+                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>Send a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                class="form-control"
+                                placeholder="Enter your name"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input
+                                type="email"
+                                id="email"
+                                class="form-control"
+                                placeholder="Enter your email"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input
+                                type="text"
+                                id="subject"
+                                class="form-control"
+                                placeholder="What is this regarding?"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea
+                                id="message"
+                                class="form-control"
+                                placeholder="Enter your message"
+                            ></textarea>
+                        </div>
+                        <button
+                            type="submit"
+                            class="cta-button"
+                            style="width: 100%"
+                        >
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p class="copyright">
+                © 2023 Nexus Portfolio. All rights reserved.
+            </p>
+        </footer>
+
+        <script>
+            // Smooth scrolling for navigation
+            document.querySelectorAll('nav a').forEach((anchor) => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 80,
+                        behavior: 'smooth',
+                    });
+                });
+            });
+
+            // Animation on scroll
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1,
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe sections
+            document.querySelectorAll('section').forEach((section) => {
+                observer.observe(section);
+            });
+
+            // Form submission
+            const contactForm = document.querySelector('.contact-form form');
+            contactForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                alert(
+                    'Thank you for your message! I will get back to you soon.'
+                );
+                contactForm.reset();
+            });
+        </script>
+    </body>
+</html>

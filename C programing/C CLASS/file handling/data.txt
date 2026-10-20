@@ -1,0 +1,24 @@
+
+========= Person Number: 1 ============
+Employee Id: em001
+NAME: Sameer seikh
+Age: 24
+Gender: male
+Department: marketing
+Salary: 24000.00
+
+========= Person Number: 2 ============
+Employee Id: sh002
+NAME: suhel
+Age: 24
+Gender: male
+Department: finance
+Salary: 23000.00
+
+========= Person Number: 3 ============
+Employee Id: mn003
+NAME: munna
+Age: 25
+Gender: male
+Department: marketing
+Salary: 25000.00

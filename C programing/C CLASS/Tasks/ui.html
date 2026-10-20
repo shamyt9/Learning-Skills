@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NeoVision Gallery | Futuristic Art Showcase</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            :root {
+                --primary: #0a0a14;
+                --secondary: #1a1a2e;
+                --accent: #00f7ff;
+                --accent2: #ff00c8;
+                --text: #e0e0ff;
+                --text-secondary: #a0a0c0;
+            }
+
+            body {
+                background: linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+                color: var(--text);
+                min-height: 100vh;
+                overflow-x: hidden;
+                position: relative;
+            }
+
+            /* Grid Background */
+            body::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(
+                        rgba(10, 10, 20, 0.8) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(10, 10, 20, 0.8) 1px,
+                        transparent 1px
+                    );
+                background-size: 40px 40px;
+                z-index: -1;
+                opacity: 0.3;
+            }
+
+            /* Floating Particles */
+            .particle {
+                position: absolute;
+                background: var(--accent);
+                border-radius: 50%;
+                opacity: 0.7;
+                z-index: -1;
+                animation: float 15s infinite linear;
+            }
+
+            @keyframes float {
+                0% {
+                    transform: translateY(0) translateX(0) rotate(0deg);
+                }
+                100% {
+                    transform: translateY(-100vh) translateX(100px)
+                        rotate(360deg);
+                }
+            }
+
+            /* Header */
+            header {
+                padding: 2rem 5%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                position: relative;
+                z-index: 10;
+            }
+
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                font-size: 1.8rem;
+                font-weight: 700;
+                color: var(--accent);
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            .logo i {
+                color: var(--accent2);
+                animation: pulse 2s infinite;
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+                50% {
+                    transform: scale(1.2);
+                }
+            }
+
+            nav ul {
+                display: flex;
+                list-style: none;
+                gap: 2rem;
+            }
+
+            nav a {
+                color: var(--text);
+                text-decoration: none;
+                font-size: 1.1rem;
+                font-weight: 500;
+                position: relative;
+                padding: 0.5rem 0;
+                transition: all 0.3s ease;
+            }
+
+            nav a::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: var(--accent);
+                transition: width 0.3s ease;
+            }
+
+            nav a:hover {
+                color: var(--accent);
+            }
+
+            nav a:hover::after {
+                width: 100%;
+            }
+
+            /* Hero Section */
+            .hero {
+                padding: 5rem 5%;
+                text-align: center;
+                max-width: 900px;
+                margin: 0 auto;
+                position: relative;
+            }
+
+            .hero h1 {
+                font-size: 4.5rem;
+                margin-bottom: 1rem;
+                background: linear-gradient(
+                    90deg,
+                    var(--accent),
+                    var(--accent2)
+                );
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                font-weight: 800;
+                letter-spacing: 1px;
+            }
+
+            .hero p {
+                font-size: 1.4rem;
+                color: var(--text-secondary);
+                max-width: 700px;
+                margin: 0 auto 2rem;
+                line-height: 1.6;
+            }
+
+            /* Gallery Controls */
+            .gallery-controls {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin: 2rem 0;
+                flex-wrap: wrap;
+            }
+
+            .filter-btn {
+                background: rgba(26, 26, 46, 0.6);
+                border: 1px solid rgba(0, 247, 255, 0.3);
+                color: var(--text);
+                padding: 0.8rem 1.8rem;
+                border-radius: 30px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                font-size: 1rem;
+                font-weight: 500;
+                backdrop-filter: blur(10px);
+            }
+
+            .filter-btn:hover,
+            .filter-btn.active {
+                background: var(--accent);
+                color: var(--primary);
+                border-color: var(--accent);
+                box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
+            }
+
+            /* Gallery Grid */
+            .gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 2rem;
+                padding: 0 5% 5rem;
+                max-width: 1600px;
+                margin: 0 auto;
+            }
+
+            .gallery-item {
+                position: relative;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                height: 350px;
+                transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                background: var(--secondary);
+                cursor: pointer;
+            }
+
+            .gallery-item:hover {
+                transform: translateY(-10px) scale(1.02);
+                box-shadow: 0 15px 40px rgba(0, 247, 255, 0.2),
+                    0 0 30px rgba(255, 0, 200, 0.1);
+            }
+
+            .gallery-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+            .gallery-item:hover img {
+                transform: scale(1.1);
+            }
+
+            .item-info {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 1.5rem;
+                background: linear-gradient(
+                    to top,
+                    rgba(10, 10, 20, 0.9),
+                    transparent
+                );
+                transform: translateY(40px);
+                opacity: 0;
+                transition: all 0.4s ease;
+            }
+
+            .gallery-item:hover .item-info {
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .item-info h3 {
+                font-size: 1.4rem;
+                margin-bottom: 0.5rem;
+                color: white;
+            }
+
+            .item-info p {
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+                margin-bottom: 1rem;
+            }
+
+            .item-tags {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            .tag {
+                background: rgba(0, 247, 255, 0.2);
+                color: var(--accent);
+                padding: 0.3rem 0.8rem;
+                border-radius: 20px;
+                font-size: 0.8rem;
+                font-weight: 500;
+            }
+
+            /* Lightbox */
+            .lightbox {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(10, 10, 20, 0.95);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .lightbox.active {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .lightbox-content {
+                position: relative;
+                max-width: 90%;
+                max-height: 90%;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 0 50px rgba(0, 247, 255, 0.3);
+            }
+
+            .lightbox-content img {
+                max-width: 100%;
+                max-height: 80vh;
+                display: block;
+                margin: 0 auto;
+            }
+
+            .lightbox-info {
+                padding: 2rem;
+                background: rgba(26, 26, 46, 0.8);
+                max-width: 800px;
+                margin: 0 auto;
+            }
+
+            .lightbox-info h3 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                color: white;
+            }
+
+            .lightbox-info p {
+                color: var(--text-secondary);
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+            }
+
+            .close-lightbox {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 2rem;
+                color: var(--text);
+                background: transparent;
+                border: none;
+                cursor: pointer;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+
+            .close-lightbox:hover {
+                background: rgba(255, 0, 200, 0.2);
+                color: var(--accent2);
+            }
+
+            /* Footer */
+            footer {
+                padding: 3rem 5%;
+                text-align: center;
+                border-top: 1px solid rgba(0, 247, 255, 0.1);
+                background: rgba(10, 10, 20, 0.8);
+                backdrop-filter: blur(10px);
+            }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .social-links a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: rgba(26, 26, 46, 0.6);
+                color: var(--text);
+                font-size: 1.5rem;
+                transition: all 0.3s ease;
+            }
+
+            .social-links a:hover {
+                background: var(--accent);
+                color: var(--primary);
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0, 247, 255, 0.4);
+            }
+
+            .copyright {
+                color: var(--text-secondary);
+                font-size: 1rem;
+            }
+
+            /* Responsive Design */
+            @media (max-width: 992px) {
+                .hero h1 {
+                    font-size: 3.5rem;
+                }
+
+                .gallery-grid {
+                    grid-template-columns: repeat(
+                        auto-fill,
+                        minmax(250px, 1fr)
+                    );
+                }
+            }
+
+            @media (max-width: 768px) {
+                header {
+                    flex-direction: column;
+                    gap: 1.5rem;
+                }
+
+                .hero h1 {
+                    font-size: 2.8rem;
+                }
+
+                .hero p {
+                    font-size: 1.2rem;
+                }
+
+                nav ul {
+                    gap: 1.2rem;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .hero {
+                    padding: 3rem 5%;
+                }
+
+                .hero h1 {
+                    font-size: 2.2rem;
+                }
+
+                .gallery-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .gallery-item {
+                    height: 300px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Dynamic Background Particles -->
+        <div id="particles"></div>
+
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fas fa-atom"></i>
+                <span>NeoVision</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Gallery</a></li>
+                    <li><a href="#">Artists</a></li>
+                    <li><a href="#">Exhibitions</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>FUTURE VISIONS</h1>
+            <p>
+                Explore a curated collection of futuristic digital art, 3D
+                renderings, and conceptual designs that push the boundaries of
+                imagination.
+            </p>
+        </section>
+
+        <!-- Gallery Controls -->
+        <div class="gallery-controls">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="digital">
+                Digital Art
+            </button>
+            <button class="filter-btn" data-filter="3d">3D Render</button>
+            <button class="filter-btn" data-filter="concept">
+                Concept Design
+            </button>
+            <button class="filter-btn" data-filter="abstract">Abstract</button>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid">
+            <!-- Items will be generated dynamically with JS -->
+        </div>
+
+        <!-- Lightbox -->
+        <div class="lightbox">
+            <button class="close-lightbox">&times;</button>
+            <div class="lightbox-content">
+                <img src="" alt="Lightbox Image" />
+                <div class="lightbox-info">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-artstation"></i></a>
+                <a href="#"><i class="fab fa-behance"></i></a>
+                <a href="#"><i class="fab fa-discord"></i></a>
+            </div>
+            <p class="copyright">
+                © 2023 NeoVision Gallery. All rights reserved.
+            </p>
+        </footer>
+
+        <script>
+            // Generate particles for background
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = 30;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.classList.add('particle');
+
+                    // Random size between 2px and 8px
+                    const size = Math.random() * 6 + 2;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+
+                    // Random position
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+
+                    // Random animation delay and duration
+                    particle.style.animationDelay = `${Math.random() * 15}s`;
+                    particle.style.animationDuration = `${
+                        Math.random() * 10 + 10
+                    }s`;
+
+                    // Random color (between blue and pink)
+                    const colors = ['#00f7ff', '#ff00c8', '#6a00ff', '#00ff9d'];
+                    const color =
+                        colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.backgroundColor = color;
+
+                    particlesContainer.appendChild(particle);
+                }
+            }
+
+            // Gallery data
+            const galleryItems = [
+                {
+                    id: 1,
+                    title: 'Quantum Cityscape',
+                    description:
+                        'A vision of future urban architecture with floating structures and neon-lit pathways.',
+                    category: '3d',
+                    tags: ['architecture', 'future'],
+                },
+                {
+                    id: 2,
+                    title: 'Neural Network',
+                    description:
+                        'Abstract representation of artificial intelligence and interconnected data streams.',
+                    category: 'abstract',
+                    tags: ['ai', 'technology'],
+                },
+                {
+                    id: 3,
+                    title: 'Cybernetic Forest',
+                    description:
+                        'Where nature meets technology - biomechanical trees with glowing energy cores.',
+                    category: 'concept',
+                    tags: ['nature', 'cyber'],
+                },
+                {
+                    id: 4,
+                    title: 'Digital Dreams',
+                    description:
+                        'Surreal landscape of digital consciousness and virtual realities.',
+                    category: 'digital',
+                    tags: ['surreal', 'virtual'],
+                },
+                {
+                    id: 5,
+                    title: 'Holographic Interface',
+                    description:
+                        'Next-gen user interface concepts with holographic displays and gesture controls.',
+                    category: 'concept',
+                    tags: ['ui', 'tech'],
+                },
+                {
+                    id: 6,
+                    title: 'Cosmic Traveler',
+                    description:
+                        'Explorer in advanced suit navigating through wormholes and alien landscapes.',
+                    category: '3d',
+                    tags: ['space', 'exploration'],
+                },
+                {
+                    id: 7,
+                    title: 'Data Stream',
+                    description:
+                        'Visualization of information flow in a hyper-connected digital world.',
+                    category: 'abstract',
+                    tags: ['data', 'digital'],
+                },
+                {
+                    id: 8,
+                    title: 'Synthetic Evolution',
+                    description:
+                        'The merging of organic and artificial life forms in a post-human era.',
+                    category: 'digital',
+                    tags: ['biology', 'tech'],
+                },
+            ];
+
+            // Generate gallery items
+            function generateGalleryItems() {
+                const galleryGrid = document.querySelector('.gallery-grid');
+                galleryGrid.innerHTML = '';
+
+                galleryItems.forEach((item) => {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.classList.add('gallery-item');
+                    galleryItem.dataset.category = item.category;
+
+                    // Generate random image from Unsplash with futuristic theme
+                    const imageUrl = `https://source.unsplash.com/random/600x600/?futuristic,${item.id}`;
+
+                    galleryItem.innerHTML = `
+                    <img src="${imageUrl}" alt="${item.title}">
+                    <div class="item-info">
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                        <div class="item-tags">
+                            ${item.tags
+                                .map((tag) => `<span class="tag">${tag}</span>`)
+                                .join('')}
+                        </div>
+                    </div>
+                `;
+
+                    galleryItem.addEventListener('click', () =>
+                        openLightbox(item)
+                    );
+                    galleryGrid.appendChild(galleryItem);
+                });
+            }
+
+            // Filter gallery items
+            function setupFilterButtons() {
+                const filterButtons = document.querySelectorAll('.filter-btn');
+
+                filterButtons.forEach((button) => {
+                    button.addEventListener('click', () => {
+                        // Remove active class from all buttons
+                        filterButtons.forEach((btn) =>
+                            btn.classList.remove('active')
+                        );
+                        // Add active class to clicked button
+                        button.classList.add('active');
+
+                        const filter = button.dataset.filter;
+                        const galleryItems =
+                            document.querySelectorAll('.gallery-item');
+
+                        galleryItems.forEach((item) => {
+                            if (
+                                filter === 'all' ||
+                                item.dataset.category === filter
+                            ) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            }
+
+            // Lightbox functionality
+            function openLightbox(item) {
+                const lightbox = document.querySelector('.lightbox');
+                const lightboxImg = lightbox.querySelector('img');
+                const lightboxTitle = lightbox.querySelector('h3');
+                const lightboxDesc = lightbox.querySelector('p');
+
+                // Set content
+                lightboxImg.src = `https://source.unsplash.com/random/1000x800/?futuristic,${item.id}`;
+                lightboxTitle.textContent = item.title;
+                lightboxDesc.textContent = item.description;
+
+                // Show lightbox
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                const lightbox = document.querySelector('.lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Initialize
+            document.addEventListener('DOMContentLoaded', () => {
+                createParticles();
+                generateGalleryItems();
+                setupFilterButtons();
+
+                // Close lightbox when clicking close button
+                document
+                    .querySelector('.close-lightbox')
+                    .addEventListener('click', closeLightbox);
+
+                // Close lightbox when clicking outside content
+                document
+                    .querySelector('.lightbox')
+                    .addEventListener('click', (e) => {
+                        if (e.target === document.querySelector('.lightbox')) {
+                            closeLightbox();
+                        }
+                    });
+
+                // Close lightbox with Escape key
+                document.addEventListener('keydown', (e) => {
+                    if (
+                        e.key === 'Escape' &&
+                        document.querySelector('.lightbox.active')
+                    ) {
+                        closeLightbox();
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
